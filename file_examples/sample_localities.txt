@@ -1,0 +1,5 @@
+Aragua 17 3
+Miranda 20 3
+Yaracuy 8 1
+Zulia 14 2
+DistritoCapital 27 4
