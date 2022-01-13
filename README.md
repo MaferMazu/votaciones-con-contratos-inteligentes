@@ -2,6 +2,8 @@
 
 Esta es una aplicación que utiliza Solidity y los conceptos de contratos inteligentes para crear un escenario de votación seguro y transparente de presidentes y gobernadores.
 
+> Estado: 🔧 En construcción
+
 
 ## 💡 Instalación 
 

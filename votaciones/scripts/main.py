@@ -2,7 +2,6 @@ import os
 import sys
 
 from brownie import *
-from faker import Faker
 
 from scripts.generadores import *
 
@@ -25,7 +24,7 @@ def main():
                 print("\nHasta luego :D")
                 sys.exit(0)
             elif base_command == 'accounts':
-                print(repr(accounts))
+                print(accounts._accounts)
             else:
                 print("\nEl comando introducido no es válido.")
         except KeyboardInterrupt:
