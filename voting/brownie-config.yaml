@@ -7,7 +7,7 @@ networks:
       cmd_settings:
         port: 8545
         gas_limit: 12000000
-        accounts: 1
+        accounts: 20
         evm_version: istanbul
         mnemonic: brownie
         default_balance: 100
