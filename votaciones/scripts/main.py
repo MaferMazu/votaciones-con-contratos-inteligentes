@@ -4,12 +4,10 @@ import sys
 from brownie import *
 from faker import Faker
 
-from scripts.generators import *
+from scripts.generadores import *
 
 
 def main():
-    print(os.getcwd())
-    print(os.system('ls'))
     contrato = accounts[0].deploy(Votaciones)
     my_accounts = []
     while True:
