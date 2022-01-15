@@ -41,7 +41,7 @@ El repositorio donde se encuentra el código fuente es:
 https://github.com/MaferMazu/votaciones-con-contratos-inteligentes 
 
 Aquí una demostración de cómo usar la aplicación:
-
+https://youtu.be/2EY4Ddcn8LQ
 
 ## Cosas interesantes
 - En el contrato se puede hacer voto nulo (el índice que hay que colocar en la votación es 0) tanto por presidente como por gobernador, se cuenta como voto pero no se suma esta información al “candidato nulo”.
