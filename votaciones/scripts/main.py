@@ -4,6 +4,7 @@ import sys
 from brownie import *
 
 from scripts.generadores import *
+from scripts.visualizadores import *
 
 
 def main():
@@ -20,14 +21,38 @@ def main():
                 contract = accounts[0].deploy(Votaciones)
                 file_name = str(tokenized_command[2])
                 file_name = file_name.replace("'", "").replace('"', '')
-                voters, candidates = genVotantes(file_name, contract)
+                contract, voters, candidates = genVotantes(file_name, contract)
+            
+            elif base_command == 'genVotos':
+                contract = genVotos(contract, voters, candidates, MIN_ABSTENTION, MAX_ABSTENTION)
+            
+            elif base_command == 'reportePorLocalidad':
+                try:
+                    index = int(tokenized_command[1])
+                    print(reportePorLocalidad(contract, index))
+                except:
+                    index = 0
+                    print(reportePorLocalidad(contract, index))
+
+            # elif base_command == 'reporteTotal':
+            #     print(reporteTotal(contract, candidates))
+
+            elif base_command == 'reportePresidencial':
+                print(reportePresidencial(contract))
+                
+            elif base_command == 'break':
+                break
+            
             elif base_command == 'exit':
                 print("\nHasta luego :D")
                 sys.exit(0)
+            
             elif base_command == 'accounts':
                 print(accounts._accounts)
+            
             else:
                 print("\nEl comando introducido no es válido.")
+        
         except KeyboardInterrupt:
             print("\nHasta luego :D")
             sys.exit(0)

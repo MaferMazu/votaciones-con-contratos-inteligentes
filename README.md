@@ -23,7 +23,28 @@ brownie run main
 - Generar votantes
 
 ```bash
-genVotante -f scripts/file_examples/sample_localities.txt
+genVotante -f scripts/file_examples/micro.txt
+```
+- Generar votos aleatorios
+
+> Nota: si se quiere modificar la abstención se puede hacer dentro del archivo scripts.main.py
+
+```bash
+genVotos
+```
+
+- Reporte por localidad
+
+```bash
+reportePorLocalidad <index>
+```
+
+Si el index no lo consigue agarra la localidad 0 por defecto.
+
+- Reporte Presidencial
+
+```bash
+reportePresidencial
 ```
 
 - Salir del programa

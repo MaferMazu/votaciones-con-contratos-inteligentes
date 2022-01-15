@@ -37,8 +37,8 @@ contract Votaciones {
     // Candidatos a la presidencia
     uint[] public candidatos_presidencia;
     mapping (address => bool) es_candidato;
-    mapping(uint => bool) es_candidato_presidencial;
-    mapping(uint => bool) es_candidato_gobernadores;
+    mapping(uint => bool) public es_candidato_presidencial;
+    mapping(uint => bool) public es_candidato_gobernadores;
     Candidato[] public candidatos_todos;
     // Localidades
     Localidad[] public localidades;
@@ -47,6 +47,7 @@ contract Votaciones {
     address public presidente;
     bool public votacionesCerradas;
     string[] resultado_final;
+
 
     constructor(){
         presidente = msg.sender;
@@ -84,16 +85,6 @@ contract Votaciones {
         localidades[_localidad].poblacion += 1;
     }
 
-    function verVotante() external view returns(string memory name, bool existencia){
-        Votante memory votante = votantes[msg.sender];
-        return (votante.nombre, votante.existe);
-    }
-
-    function verVotanteAddress(address direccion) external view returns(string memory name, bool existencia){
-        Votante memory votante = votantes[direccion];
-        return (votante.nombre, votante.existe);
-    }
-
     function registrarCandidato(address _direccion, bool _presidencial) external {
         require(presidente == msg.sender, "Solo el presidente puede registrar candidato.");
         Votante storage mi_candidato = votantes[_direccion];
@@ -118,7 +109,7 @@ contract Votaciones {
         require(!votacionesCerradas, "Votaciones cerradas.");
         require(_presidente < candidatos_todos.length, "El presidente debe ser un candidato.");
         require(_gobernador < candidatos_todos.length, "El gobernador debe ser un candidato.");
-        require(es_candidato_presidencial[_presidente], "El presidente escogido debe ser canidato presidencial.");
+        require(es_candidato_presidencial[_presidente], "El presidente escogido debe ser candidato presidencial.");
         require(es_candidato_gobernadores[_gobernador], "El gobernador escogido debe ser candidato a gobernador.");
         Votante memory votante = votantes[msg.sender];
         require(votante.existe, "El votante no existe.");
@@ -205,10 +196,6 @@ contract Votaciones {
         resultado_final.push(Strings.toString(cuenta));
         resultado_final.push(Strings.toString(abstencion));
         for (uint i=0; i<localidades.length; i++){
-            string memory localidad_nombre;
-            string memory ganador_nombre;
-            uint cuenta;
-            uint abstencion;
             (localidad_nombre, ganador_nombre, cuenta, abstencion)= this.reportePorLocalidad(i);
             resultado_final.push(localidad_nombre);
             resultado_final.push(ganador_nombre);

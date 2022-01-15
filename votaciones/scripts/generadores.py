@@ -58,6 +58,7 @@ def genVotantes(file_name, contract):
                     index_candidate += 1
 
                 contract.registrarCandidato(selected_candidates[0].address, True, {'from': accounts[0]})
+                candidate = Candidato(selected_candidates[0], index_candidate)
                 candidates["All"].append(candidate)
                 index_candidate += 1
 
@@ -65,8 +66,26 @@ def genVotantes(file_name, contract):
     except:
         print("No se pudo abrir el archivo.")
 
-    return voters_list, candidates
+    return contract, voters_list, candidates
 
 
-def genVotos(voters, candidates):
+def genVotos(contract, voters, candidates, min_abstention, max_abstention):
     """genVotos."""
+    if min_abstention < max_abstention:
+        abstention = random.choice(range(min_abstention,max_abstention))
+    else:
+        abstention = max_abstention
+
+    num_voters = int(len(voters) * (100-abstention)/100)
+    real_voters = random.sample(voters, num_voters)
+    candidates_global = candidates["All"]
+    for voter in real_voters:
+        location = voter.locality
+        candidates_local = candidates[location]
+        candidate_l = random.choice(candidates_local)
+        candidate_g = random.choice(candidates_global)
+        contract.votar(candidate_g.index, candidate_l.index, {'from': voter.address})
+
+    return contract
+
+
